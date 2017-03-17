@@ -17,13 +17,13 @@ module Sysloggly
 
         # add https://github.com/crohr/syslogger
         syslogger = Syslogger.new(app_name, Syslog::LOG_PID, Syslog::LOG_LOCAL7)
-        Rails.configuration.syslogger = syslogger
+        config.syslogger = syslogger
 
         # add https://github.com/roidrage/lograge
         config.lograge.enabled = true
         config.lograge.formatter = Lograge::Formatters::Json.new
         config.lograge.keep_original_rails_log = true
-        config.logger = config.syslogger
+        config.lograge.logger = config.syslogger
         config.lograge.custom_options = lambda do |event|
           { env: environment }
         end
