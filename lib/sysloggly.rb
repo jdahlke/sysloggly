@@ -4,7 +4,7 @@ require 'lograge'
 #
 # Sysloggly
 #
-# @config [uri] only supports UDP
+# @config [uri] only supports [udp|tcp|file]
 module Sysloggly
   class InputURLRequired < ArgumentError; end
   class UnsupportedScheme < ArgumentError; end
