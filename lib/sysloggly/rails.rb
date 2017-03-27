@@ -1,33 +1,35 @@
+#
+# Sysloggly default configuration:
+#   @config progname: Rails app name
+#   @config env:      Rails env
+#   @config logger:   file log to sysloggly.log in the rails log directory
+#
 module Sysloggly
-  if Object.const_defined?(:Rails) and Rails.const_defined?(:Railtie)
-    # @private
-    class Railtie < Rails::Railtie
-      initializer 'sysloggly.initialize' do |app|
-        config = app.config
+  # @private
+  class Railtie < Rails::Railtie
+    config.after_initialize do |app|
+      Sysloggly.configure do |config|
+        config.progname ||= app.class.parent_name
+        config.env ||= Rails.env
+        config.uri ||= "file://#{Rails.root.join('log','sysloggly.log')}"
 
-        # find app name and app environment
-        app_name = Rails.application.class.parent_name
-        environment = Rails.env
-        begin
-          # try to find a honeybadger configuration
-          honeybadger = YAML.load_file(Rails.root.join('config', 'honeybadger.yml'))
-          environment = honeybadger['env'].to_s
-        rescue
-        end
+        config.logger = Sysloggly.new(config.uri, {
+          env: config.env,
+          progname: config.progname
+        })
+      end
 
-        # add https://github.com/crohr/syslogger
-        syslogger = Syslogger.new(app_name, Syslog::LOG_PID, Syslog::LOG_LOCAL7)
-        config.syslogger = syslogger
-
-        # add https://github.com/roidrage/lograge
+      app.configure do
+        # @see https://github.com/roidrage/lograge
         config.lograge.enabled = true
         config.lograge.formatter = Lograge::Formatters::Json.new
         config.lograge.keep_original_rails_log = true
-        config.lograge.logger = config.syslogger
-        config.lograge.custom_options = lambda do |event|
-          { env: environment }
-        end
+        config.lograge.logger = Sysloggly.logger
       end
+      Lograge.setup(app)
+
+      # load extensions
+      require 'sysloggly/extensions/honeybadger'  if defined?(Honeybadger)
     end
   end
 end
