@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here:
   s.required_ruby_version = '~> 2.0'
+  s.add_dependency 'multi_json'
   s.add_dependency 'lograge'
-  s.add_dependency 'syslogger'
 
   # specify any development dependencies here:
   s.add_development_dependency 'rspec'
