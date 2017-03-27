@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = Sysloggly::VERSION
   s.licenses    = ['MIT']
   s.authors     = ['Joergen Dahlke']
-  s.email       = ['joergen.dahlke@gmail.de']
+  s.email       = ['joergen.dahlke@gmail.com']
   s.homepage    = 'https://github.com/jdahlke/sysloggly'
   s.summary     = %q{Lograge and Syslog integration for Rails apps.}
   s.description = %q{Lograge and Syslog integration for Rails apps.}
