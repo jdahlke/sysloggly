@@ -1,4 +1,4 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in bima-aws.gemspec
+# Specify your gem's dependencies in sysloggly.gemspec
 gemspec

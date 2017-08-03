@@ -1,5 +1,8 @@
 ## Changelog
 
+#### 0.2.1
+- cleanup
+
 #### 0.2.0
 - complete refactoring, removed syslogger gem and added own implementation based
   on logglier

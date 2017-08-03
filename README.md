@@ -20,7 +20,7 @@ Sysloggly.configure do |config|
 
   # for filelog                  # default
   config.uri = "file://#{Rails.root.join('log','sysloggly.log')}"
-  # or for syslog '[udp|tcp]://<hostname>:<port>/<facility>'
+  # for syslog '[udp|tcp]://<hostname>:<port>/<facility>'
   config.uri = "udp://127.0.0.1:514/23"
 end
 
