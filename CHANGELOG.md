@@ -1,5 +1,9 @@
 ## Changelog
 
+#### 0.3.0
+- refactoring Filelog client for non-blocking file access
+- [new] choose between SimpleFormatter and SyslogFormatter
+
 #### 0.2.1
 - cleanup
 
