@@ -15,11 +15,11 @@ gem 'sysloggly'
 
 ```ruby
 Sysloggly.configure do |config|
-  config.progname = Rails.env    # default
   config.env = Rails.env         # default
 
   # for filelog                  # default
   config.uri = "file://#{Rails.root.join('log','sysloggly.log')}"
+
   # for syslog '[udp|tcp]://<hostname>:<port>/<facility>'
   config.uri = "udp://127.0.0.1:514/23"
 end
