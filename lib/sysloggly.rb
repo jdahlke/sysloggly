@@ -44,7 +44,7 @@ module Sysloggly
       client = Sysloggly::Clients::Filelog.new(input_uri.path)
       formatter = Sysloggly::Formatters::SimpleFormatter.new(input_uri, opts)
     when "udp", "tcp"
-      client = Sysloggly::Clients::Networklog.new(input_uri, opts)
+      client = Sysloggly::Clients::Networklog.new(input_uri)
       formatter = Sysloggly::Formatters::SyslogFormatter.new(input_uri, opts)
     else
       raise Sysloggly::UnsupportedScheme.new("#{input_uri.scheme} is unsupported")

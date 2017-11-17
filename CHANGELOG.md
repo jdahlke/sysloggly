@@ -1,6 +1,9 @@
 ## Changelog
 
 #### 0.3.0
+- [fix] Networklog (logging via udp)
+
+#### 0.3.0
 - refactoring Filelog client for non-blocking file access
 - [new] choose between SimpleFormatter and SyslogFormatter
 
@@ -14,7 +17,4 @@
 - able to switch to sys logger, which uses udp socket
 
 #### 0.1.0
-- initial
-
-#### 0.0.1
 - initial
