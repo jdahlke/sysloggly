@@ -22,6 +22,8 @@ Sysloggly.configure do |config|
 
   # for syslog '[udp|tcp]://<hostname>:<port>/<facility>'
   config.uri = "udp://127.0.0.1:514/23"
+
+  config.ignore_user_agents = ["Pingdom.com_bot"] # default
 end
 
 ```

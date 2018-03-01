@@ -17,7 +17,9 @@ module Sysloggly
   class UnsupportedScheme < ArgumentError; end
   class UnknownFacility < ArgumentError; end
 
-  mattr_accessor :progname, :env, :uri, :logger
+  mattr_accessor :progname, :env, :uri
+  mattr_accessor :logger
+  mattr_accessor :ignore_user_agents
 
   def self.configure
     yield self
