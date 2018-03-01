@@ -1,6 +1,9 @@
 ## Changelog
 
-#### 0.3.0
+#### 0.3.2
+- [new] option `ignore_user_agents` with default "Pingdom.com_bot"
+
+#### 0.3.1
 - [fix] Networklog (logging via udp)
 
 #### 0.3.0

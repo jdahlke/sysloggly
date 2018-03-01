@@ -1,32 +1,34 @@
-$:.push File.expand_path("../lib", __FILE__)
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "sysloggly/version"
 
-Gem::Specification.new do |s|
-  s.name        = "sysloggly"
-  s.version     = Sysloggly::VERSION
-  s.licenses    = ["MIT"]
-  s.authors     = ["Joergen Dahlke"]
-  s.email       = ["joergen.dahlke@gmail.com"]
-  s.homepage    = "https://github.com/jdahlke/sysloggly"
-  s.summary     = %q{Lograge and Syslog integration for Rails apps.}
-  s.description = %q{Lograge and Syslog integration for Rails apps.}
+Gem::Specification.new do |spec|
+  spec.name        = "sysloggly"
+  spec.version     = Sysloggly::VERSION
+  spec.licenses    = ["MIT"]
+  spec.authors     = ["Joergen Dahlke"]
+  spec.email       = ["joergen.dahlke@gmail.com"]
 
-  s.rubyforge_project = "sysloggly"
+  spec.homepage    = "https://github.com/jdahlke/sysloggly"
+  spec.summary     = %q{Lograge and Syslog integration for Rails apps.}
+  spec.description = %q{Lograge and Syslog integration for Rails apps.}
 
-  s.files         = `git ls-files -- lib/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.rubyforge_project = "sysloggly"
+
+  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
 
 
   # specify any dependencies here:
-  s.required_ruby_version = "~> 2.0"
-  s.add_runtime_dependency "multi_json"
-  s.add_runtime_dependency "lograge"
-
-  # s.add_runtime_dependency "honeybadger"
-  # s.add_runtime_dependency "aws-sdk"
+  spec.required_ruby_version = "~> 2.0"
+  spec.add_runtime_dependency "multi_json"
+  spec.add_runtime_dependency "lograge"
 
   # specify any development dependencies here:
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rake"
 end
