@@ -16,8 +16,7 @@ module Sysloggly
         config.uri ||= "file://#{Rails.root.join("log","sysloggly.log")}"
         config.ignore_user_agents ||= ["Pingdom.com_bot"]
 
-        config.logger = Sysloggly.new(config.uri, {
-          env: config.env,
+        config.logger = Sysloggly::Logger.new(config.uri, {
           progname: config.progname
         })
       end
@@ -41,8 +40,6 @@ module Sysloggly
       end
 
       Lograge.setup(app)
-
-      require 'sysloggly/extensions/honeybadger'  if defined?(Honeybadger)
     end
   end
 end

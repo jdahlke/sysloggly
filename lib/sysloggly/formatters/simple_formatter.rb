@@ -1,18 +1,24 @@
 require "multi_json"
 require "socket"
 
+#
+# Simple formatter to output error messages as JSON.
+#
 module Sysloggly
   module Formatters
     class SimpleFormatter
-      attr_reader :input_uri, :opts
+      attr_reader :input_uri, :custom_fields
 
-      def initialize(input_uri, opts)
+      def initialize(input_uri, opts = {})
         @input_uri = input_uri
-        @opts = opts
 
+        @env = opts[:env] || Sysloggly.env
         @hostname = opts[:hostname] || Socket.gethostname.split(".").first
         @progname = opts[:progname]
-        @custom_options = opts.except(:hostname, :progname)
+        @custom_fields = opts.except(:progname).merge({
+          env: @env,
+          hostname: @hostname
+        })
 
         if ["udp", "tcp"].include?(@input_uri.scheme) && !@input_uri.path.empty?
           if @facility = @input_uri.path.split("/")[1]
@@ -35,10 +41,10 @@ module Sysloggly
 
       # @api public
       def call(severity, datetime, progname, payload)
-        message = "#{severity} [#{datetime.strftime(datetime_format)}] #{@hostname} "
+        message = "#{severity} [#{datetime.strftime(datetime_format)}] "
 
-        message << MultiJson.dump(hashify_message(payload).merge(@custom_options))
-        message << "\r\n"  if ["file", "tcp"].include?(@input_uri.scheme)
+        message << MultiJson.dump(hashify_message(payload).merge(custom_fields))
+        message << "\r\n"  if ["file", "tcp"].include?(input_uri.scheme)
 
         message
       end

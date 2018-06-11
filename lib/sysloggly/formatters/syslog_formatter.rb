@@ -1,3 +1,6 @@
+#
+# Formatter to output messages as JSON in Rsyslog format.
+#
 module Sysloggly
   module Formatters
     class SyslogFormatter < SimpleFormatter
@@ -29,7 +32,7 @@ module Sysloggly
         # Include process ID in progname/log tag - RFC3164 § 5.3
         message << "#{@progname || progname || $0}[#{Process.pid}]: "
 
-        message << MultiJson.dump(hashify_message(payload).merge(@custom_options))
+        message << MultiJson.dump(hashify_message(payload).merge(custom_fields))
         message << "\r\n"  if ["file", "tcp"].include?(@input_uri.scheme)
 
         message
