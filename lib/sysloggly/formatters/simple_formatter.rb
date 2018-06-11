@@ -14,8 +14,9 @@ module Sysloggly
 
         @env = opts[:env] || Sysloggly.env
         @hostname = opts[:hostname] || Socket.gethostname.split(".").first
-        @progname = opts[:progname]
+        @progname = opts[:progname].to_s.downcase
         @custom_fields = opts.except(:progname).merge({
+          app: @progname,
           env: @env,
           hostname: @hostname
         })

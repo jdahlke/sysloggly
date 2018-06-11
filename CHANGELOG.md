@@ -1,7 +1,10 @@
 ## Changelog
 
+#### 0.4.1
+- [new] log `app` (progname) as JSON field
+
 #### 0.4.0
-- [break] log +hostname as JSON field
+- [break] log `hostname` as JSON field
 
 #### 0.3.2
 - [new] option `ignore_user_agents` with default "Pingdom.com_bot"
